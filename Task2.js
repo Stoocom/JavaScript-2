@@ -1,5 +1,26 @@
 //=========================2=УРОК=========================//=========================2=УРОК=========================//
 
+
+function sendRequest(url) {
+    // pending->fulfulled|rejected
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status !== 200) {
+                    reject();
+                }
+                const users = JSON.parse(xhr.responseText);
+
+                resolve(users);
+            }
+        };
+        xhr.send();
+    });
+}
+
 // Создание отдельного класса для продукта-обьекта
 class Item {
     // Функция-конструктор в классе продукта с двумя свойствами и одним методом(функцией)
@@ -14,20 +35,20 @@ class Item {
 }
 
 // Cоздание класса корзины, где будут хранится наши продукты после перемещения
-class Catalog {
+class Basket {
     // Функция-конструктор в классе продукта с одним пустым массивом
     constructor() {
         this.goods = [];
     }
+
     // Функция для добавления из сервера товаров-продуктов (уже добавлены)
-    fetchGoods() {
-        this.goods = [
-            {},
-            { title: 'Жесткий диск SSD 1Tb', price: 10000 },
-            { title: 'Материнская плата', price: 4000 },
-            { title: 'Видеокарта', price: 15000 },
-        ];
+    fetchItems() {
+        return sendRequest('/goods')
+            .then((goods) => {
+                this.goods = goods;
+            });
     }
+
     // Функция для отрисовки товаров-продуктов в новой корзине
     render() {
         let listHtml = '';
@@ -40,8 +61,7 @@ class Catalog {
         document.querySelector('.catalog').innerHTML = listHtml;
     }
 
-    // Функция для подсчета стоимости товаров
-    SumPrices() {
+    sumPrices() {
         let sum = 0;
         this.goods.forEach((good) => {
             good.title = good.title || 0;
@@ -57,32 +77,33 @@ class Catalog {
     }
 }
 
-class Basket {
-    // Конструктор для нового массива для корзины
-    constructor() {
-        this.goodsInBasket = [];
-    }
-    // Метод render для отрисовки всего массива в корзине
-    render() {
-        let listHtml = '';
-        this.goodsInBasket.forEach(good => {
-            good.title = good.title || "None";
-            good.price = good.price || "None";
-            const goodItem = new ItemBasket(good.title, good.price);
-            listHtml += goodItem.render();
-        });
-        document.querySelector('.basket').innerHTML = listHtml;
 
-    }
-}
+let button = document.querySelector('button');
+console.log(button);
 
-class ItemBasket extends Item {
-    //добавление отдельного метода для добавления в корзину
-    //При этом остальные методы и конструктор остаются базисными
-    addToBasket() {
-        let button = document.getElementById(this.id);
-        button.addEventListener('click', (ItemBasket) => goodsInBasket.push(ItemBasket));
-    }
+button.addEventListener("click", add);
+function add() {
+    //alert("Начинаем отрисовку!");
+    const list = new Basket(); //Создание нового обьекта
+    list.fetchItems().then(() => {
+        list.render();
+        list.sumPrices();//Вот тут не знаю, можно ли сделать данную функцию через then???
+
+    });
+
 }
+    //alert("Hello");
+    //console.log("Я еще тут");
+    //const list = new Catalog();
+    //list.fetchItems();
+    //console.log("Я еще тут");
+    //document.querySelector('.catalog').innerHTML = list.render();
+    //$button.appendChild();
+
+
+
+
+
+
 
 

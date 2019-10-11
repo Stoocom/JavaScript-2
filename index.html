@@ -3,47 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-<header class="menu">
-    <button id = "1" class="cart-button" type="button">Корзина</button>
-</header>
-    <div class="catalog"></div>
 <script>
+// Решение первой задачи
 
-    alert('Нажмите на кнопку "Корзина"');
-    const goods = [
-        {},
-        { title: 'Жесткий диск SSD 1Tb', price: 10000 },
-        { title: 'Материнская плата', price: 4000 },
-        { title: 'Видеокарта', price: 15000 },
-    ];
-    // Cобытие для кнопки
-    let button = document.getElementById("1");
-    button.addEventListener('click', () => renderList(goods));
+    let text1 = "Шла 'Саша' по 'шоссе' и уронила в 'мяч'";
+    let regexp1 = /'/g;
 
-    const renderList = (items) => {
-        document.querySelector('.catalog').style.display = "flex";
-        document.querySelector('.catalog').innerHTML = items.map(renderItem).join('');
-    };
+    console.log(text1.replace(regexp1, " \" "));
 
-    const renderItem = (item) => {
-        item.title = item.title || "None";
-        item.price = item.price || "None";
-        return `<div class="item"><h3 class="item__title">${item.title}</h3><p class="item__price">${item.price}</p></div>`;
-    };
+//Решение второй задачи
 
+    let text2 = "'Шла' 'Саша' 'по' 'aren't 'шоссе' и 'уронила' в 'мяч' aren't";
+    regexp1 = /^'|(\s\S)+'|'+(\s\S)|'$/g;
 
+    let regexp2 = /(?![a-z]'[a-z])([\s\S])'|^'/g;
 
-
-
-
+    console.log(text2.replace(regexp2, '$1"'));
 
 </script>
-
 </body>
 
 </html>                                         

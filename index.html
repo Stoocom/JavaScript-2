@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Интернет-магазин</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <button class="btn-cart" type="button">Корзина</button>
+</header>
+<main>
+    <div class="products"></div>
+</main>
+<script>
+
+
+    const products = [
+        {id: 1, price: 40000, pic: 'Pics/Notebook.jpg', },
+        {id: 2, title: 'Mouse', price: 1500, pic: 'Pics/Mouse.jpg',},
+        {id: 3, title: 'Keyboard', pic: 'Pics/Keyboard.jpg',},
+        {id: 4, title: 'Gamepad', price: 4500, },
+    ];
+    // Cобытие для кнопки
+    let button = document.querySelector(".btn-cart");
+
+
+    const renderProduct = (title = "Меняем название товара" , price = "Цена уточняется", pic = "None") => {
+        return `<div class="item">
+            <h3 class="item__title">${title}</h3>
+            <p class="item__price">${price}</p>
+            <img src='${pic}' class="item__image" alt="Фото уточняется">
+          </div>`;
+    };
+
+    const renderProducts = goods => {
+        const productsList = goods.map(good => renderProduct(good.title, good.price, good.pic)).join("");
+        document.querySelector('.products').innerHTML = productsList;
+    };
+
+    button.addEventListener('click', () => renderProducts(products));
+</script>
+
+</body>
+
+</html>                                         
+                                                            
+                                                                     
+                                                                              
+                                                                                                

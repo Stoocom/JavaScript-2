@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+<script>
+// Решение
+
+    let text1 = `One: 'Hi Mary.' Two: 'Oh, hi.'\nOne: 'How are you doing?'\nTwo: 'I'm doing alright. How about you?'\nOne: 'Not too bad. The weather is great isn't it?'`;
+    let regexp1 = /(?![a-zA-Z]'[A-Za-z])([\s\S])'|^'/g;
+    console.log(text1.replace(regexp1, `$1"`));
+
+
+</script>
+</body>
+
+</html>                                         
+                                                            
+                                                                     
+                                                                              
+                                                                                                

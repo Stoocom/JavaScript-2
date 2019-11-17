@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>E-shop</title>
+</head>
+<body>
+<div id="app">
+    <header>
+        <input type="text" class="goods-search" v-model="searchLine"/>
+        <button @click="filter" class="search-button">Искать</button>
+        <button class="cart-button" type="button" @click="show = !show">Корзина</button>
+        <p>{{searchLine}}</p>
+    </header>
+    <main>
+        <div class="goods-list">
+
+            <div class="goods-item" v-for="good of filteredGoods" :key="good.id_product">
+                <img :src="imgCatalog">
+                <h3>{{ good.product_name }}</h3>
+                <p>{{ good.price }}</p>
+                <button class="buy-btn" @click="addProduct(good)"> Купить </button>
+            </div>
+        </div>
+        <div class="cart" v-if="show">
+            <div class="goods-item" v-for="good of cartItems" :key="good.id_product">
+                <img :src="imgCart">
+                <h3>{{ good.product_name }}</h3>
+                <p>{{ good.price }}</p>
+                <p>{{ good.quantity }}</p>
+                <button class="buy-btn" @click="addProduct(good)"> Купить </button>
+                <button class="remove-btn" @click="removeProduct(good)"> Убрать </button>
+            </div>
+            <div class="sumCart">Общая стоимость {{calcSum()}}</div>
+        </div>
+
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
+                                                                                                
